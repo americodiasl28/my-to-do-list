@@ -1,10 +1,3 @@
-/* ==========================================================
-   index.css - versão suave e moderna, mobile-first
-   Substitui TODO o conteúdo de src/index.css por este ficheiro.
-   Mesmos nomes de classes das versões anteriores.
-   ========================================================== */
-
-/* ---------- 1. Variáveis ---------- */
 :root {
   --fundo: #f3f2ef;
   --superficie: #ffffff;
@@ -51,7 +44,7 @@ body {
 
 /* ---------- 3. Moldura mobile ----------
    No telemóvel ocupa o ecrã todo.
-   No desktop vira um "cartão" arredondado, centrado. */
+   No desktop vira um cartão arredondado, centrado. */
 #root {
   max-width: var(--largura-app);
   min-height: 100vh;
@@ -88,14 +81,7 @@ svg {
   flex-shrink: 0;
 }
 
-/* ---------- 5. Botões e links-botão ---------- */
-button,
-.botao,
-.voltar {
-  font: inherit;
-  cursor: pointer;
-}
-
+/* ---------- 5. Botões ---------- */
 button {
   display: inline-flex;
   align-items: center;
@@ -104,11 +90,13 @@ button {
   min-height: 44px;
   padding: 0 18px;
   border: 0;
-  font-size: 0.9375rem;
   border-radius: var(--raio);
   background: var(--acento);
   color: #ffffff;
+  font: inherit;
+  font-size: 0.9375rem;
   font-weight: 650;
+  cursor: pointer;
   box-shadow: var(--sombra-acento);
   transition: transform 0.15s ease, background 0.15s ease;
 }
@@ -118,61 +106,16 @@ button:active {
   transform: scale(0.98);
 }
 
-/* Link grande (Home) */
+/* Botão principal (Nova tarefa) */
 .botao {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  width: 100%;
   min-height: 52px;
-  margin-bottom: 10px;
-  padding: 0 18px;
-  border-radius: var(--raio);
-  background: var(--acento);
-  color: #ffffff;
-  font-size: 0.9375rem;
-  font-weight: 650;
-  text-decoration: none;
-  box-shadow: var(--sombra-acento);
-  transition: transform 0.15s ease, background 0.15s ease;
+  margin-bottom: 8px;
 }
 
-.botao:active {
-  background: var(--acento-escuro);
-  transform: scale(0.98);
-}
-
-/* Variante suave, sem sombra */
-.botao.secundario {
-  background: var(--acento-suave);
-  color: var(--acento-escuro);
-  box-shadow: none;
-}
-
-.botao.secundario:active {
-  background: #e0e0f7;
-}
-
-/* Link "Voltar" */
-.voltar {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 48px;
-  margin-top: 24px;
-  color: var(--tinta-suave);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.voltar:active {
-  color: var(--acento);
-}
-
-/* Foco visível para teclado */
 button:focus-visible,
 input:focus-visible,
-.botao:focus-visible,
-.voltar:focus-visible {
+textarea:focus-visible {
   outline: 3px solid var(--acento);
   outline-offset: 3px;
 }
@@ -182,13 +125,12 @@ input:focus-visible,
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin: 24px 0 8px;
+  margin: 20px 0 0;
 }
 
-input {
+input,
+textarea {
   width: 100%;
-  min-height: 48px;
-  padding: 0 16px;
   border: 2px solid transparent;
   border-radius: var(--raio);
   background: var(--campo);
@@ -198,11 +140,25 @@ input {
     background 0.15s ease;
 }
 
-input::placeholder {
+input {
+  min-height: 48px;
+  padding: 0 16px;
+}
+
+textarea {
+  min-height: 96px;
+  padding: 12px 16px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+input::placeholder,
+textarea::placeholder {
   color: #9b9aa7;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: var(--acento);
   background: var(--superficie);
@@ -216,7 +172,6 @@ ul {
   list-style: none;
 }
 
-/* Cada tarefa é um cartão suave */
 li {
   display: flex;
   align-items: center;
@@ -230,24 +185,49 @@ li {
   box-shadow: var(--sombra-suave);
 }
 
-li .texto {
+/* Texto + nota ocupam o espaço que sobra */
+li .conteudo {
   flex: 1;
+  min-width: 0; /* deixa o texto longo quebrar linha em vez de alargar o cartão */
+}
+
+li .texto {
   display: flex;
   align-items: center;
-  gap: 10px; /* espaço entre o ícone e o texto */
+  gap: 10px;
   min-height: 44px;
   font-size: 0.9375rem;
   overflow-wrap: anywhere;
   cursor: pointer;
 }
 
-/* O ícone do círculo ganha a cor de acento */
 li .texto svg {
   color: var(--acento);
 }
 
-/* Botão apagar: discreto; avermelha suavemente ao tocar */
-li .remover {
+/* Tarefa concluída: riscada e mais clara */
+li .texto.feita {
+  color: var(--tinta-suave);
+  text-decoration: line-through;
+}
+
+/* Anotação por baixo do texto, alinhada com ele (22px do ícone + 10px de espaço) */
+li .nota {
+  margin: -6px 0 10px 32px;
+  color: var(--tinta-suave);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  white-space: pre-wrap; /* respeita as mudanças de linha escritas */
+  overflow-wrap: anywhere;
+}
+
+/* Botões editar e apagar */
+li .acoes {
+  display: flex;
+  gap: 2px;
+}
+
+li .acoes button {
   width: 38px;
   min-height: 38px;
   padding: 0;
@@ -257,10 +237,14 @@ li .remover {
   box-shadow: none;
 }
 
-li .remover:active {
+li .acoes .editar:active {
+  background: var(--acento-suave);
+  color: var(--acento);
+}
+
+li .acoes .remover:active {
   background: var(--perigo-suave);
   color: var(--perigo);
-  transform: scale(0.94);
 }
 
 /* ---------- 8. Estado vazio ---------- */
@@ -270,7 +254,86 @@ li .remover:active {
   color: var(--tinta-suave);
 }
 
-/* ---------- 9. Menos movimento ---------- */
+/* ---------- 9. Modal ---------- */
+.fundo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end; /* a folha sobe de baixo */
+  justify-content: center;
+  background: rgba(29, 28, 36, 0.45);
+  animation: aparecer 0.15s ease;
+}
+
+.modal {
+  width: 100%;
+  max-width: var(--largura-app);
+  padding: var(--espaco) var(--espaco) 28px;
+  border-radius: var(--raio-grande) var(--raio-grande) 0 0;
+  background: var(--superficie);
+  box-shadow: 0 -10px 40px -12px rgba(29, 28, 36, 0.35);
+  animation: subir 0.22s ease;
+}
+
+.modal-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-topo h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+button.icone {
+  width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-radius: 12px;
+  background: var(--campo);
+  color: var(--tinta-suave);
+  box-shadow: none;
+}
+
+button.icone:active {
+  background: var(--linha);
+}
+
+/* ---------- 10. Toast ---------- */
+.toast {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 20; /* por cima do modal */
+  width: fit-content;
+  max-width: calc(100% - 40px);
+  margin: 0 auto;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--tinta);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px -10px rgba(29, 28, 36, 0.5);
+  animation: subir 0.2s ease;
+}
+
+/* ---------- 11. Animações ---------- */
+@keyframes aparecer {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes subir {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* ---------- 12. Menos movimento ---------- */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;

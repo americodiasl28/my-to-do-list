@@ -1,16 +1,33 @@
-import { Plus } from "lucide-react";
-function FormularioTarefa({ texto, aoMudarTexto, aoAdicionar }) {
+function FormularioTarefa({
+  texto,
+  notas,
+  aoMudarTexto,
+  aoMudarNotas,
+  aoSubmeter,
+  rotuloBotao,
+}) {
+  function aoEnviar(e) {
+    e.preventDefault(); // impede o formulário de recarregar a página
+    aoSubmeter();
+  }
+
   return (
-    <div className="formulario">
+    <form className="formulario" onSubmit={aoEnviar}>
       <input
+        autoFocus
         value={texto}
         onChange={(e) => aoMudarTexto(e.target.value)}
-        placeholder="Nova tarefa"
+        placeholder="O que tens para fazer?"
+        maxLength={120}
       />
-      <button onClick={aoAdicionar}>
-        <Plus size={20} /> Adicionar</button>
-      <p>Estás a escrever: {texto}</p>
-    </div>
+      <textarea
+        value={notas}
+        onChange={(e) => aoMudarNotas(e.target.value)}
+        placeholder="Anotações (opcional)"
+        rows={3}
+      />
+      <button type="submit">{rotuloBotao}</button>
+    </form>
   );
 }
 

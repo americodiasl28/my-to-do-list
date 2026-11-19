@@ -1,111 +1,279 @@
+/* ==========================================================
+   index.css - versão suave e moderna, mobile-first
+   Substitui TODO o conteúdo de src/index.css por este ficheiro.
+   Mesmos nomes de classes das versões anteriores.
+   ========================================================== */
+
+/* ---------- 1. Variáveis ---------- */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --fundo: #f3f2ef;
+  --superficie: #ffffff;
+  --campo: #f6f6f8;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --tinta: #1d1c24;
+  --tinta-suave: #6c6b78;
+  --linha: #ebebf0;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --acento: #5b5bd6;
+  --acento-escuro: #4a4ac0;
+  --acento-suave: #ececfb;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --perigo: #d1435b;
+  --perigo-suave: #fdecef;
+
+  --raio: 16px;
+  --raio-grande: 24px;
+  --espaco: 20px;
+  --largura-app: 480px;
+
+  --sombra-suave: 0 1px 2px rgba(29, 28, 36, 0.05),
+    0 4px 14px -6px rgba(29, 28, 36, 0.1);
+  --sombra-acento: 0 8px 20px -8px rgba(91, 91, 214, 0.65);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* ---------- 2. Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px; /* evita o zoom automático do iPhone nos inputs */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
+/* ---------- 3. Moldura mobile ----------
+   No telemóvel ocupa o ecrã todo.
+   No desktop vira um "cartão" arredondado, centrado. */
 #root {
-  width: 1126px;
-  max-width: 100%;
+  max-width: var(--largura-app);
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+  padding: 36px var(--espaco) 48px;
+  background: var(--superficie);
+}
+
+@media (min-width: 520px) {
+  #root {
+    min-height: auto;
+    margin: 32px auto;
+    border-radius: var(--raio-grande);
+    box-shadow: 0 20px 50px -20px rgba(29, 28, 36, 0.2);
+  }
+}
+
+/* ---------- 4. Texto ---------- */
+h1 {
+  margin: 0 0 6px;
+  font-size: 1.625rem;
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+p {
+  margin: 0 0 24px;
+  color: var(--tinta-suave);
+}
+
+svg {
+  flex-shrink: 0;
+}
+
+/* ---------- 5. Botões e links-botão ---------- */
+button,
+.botao,
+.voltar {
+  font: inherit;
+  cursor: pointer;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  font-size: 0.9375rem;
+  border-radius: var(--raio);
+  background: var(--acento);
+  color: #ffffff;
+  font-weight: 650;
+  box-shadow: var(--sombra-acento);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button:active {
+  background: var(--acento-escuro);
+  transform: scale(0.98);
+}
+
+/* Link grande (Home) */
+.botao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  margin-bottom: 10px;
+  padding: 0 18px;
+  border-radius: var(--raio);
+  background: var(--acento);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  text-decoration: none;
+  box-shadow: var(--sombra-acento);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.botao:active {
+  background: var(--acento-escuro);
+  transform: scale(0.98);
+}
+
+/* Variante suave, sem sombra */
+.botao.secundario {
+  background: var(--acento-suave);
+  color: var(--acento-escuro);
+  box-shadow: none;
+}
+
+.botao.secundario:active {
+  background: #e0e0f7;
+}
+
+/* Link "Voltar" */
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  margin-top: 24px;
+  color: var(--tinta-suave);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.voltar:active {
+  color: var(--acento);
+}
+
+/* Foco visível para teclado */
+button:focus-visible,
+input:focus-visible,
+.botao:focus-visible,
+.voltar:focus-visible {
+  outline: 3px solid var(--acento);
+  outline-offset: 3px;
+}
+
+/* ---------- 6. Formulário ---------- */
+.formulario {
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  gap: 12px;
+  margin: 24px 0 8px;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 2px solid transparent;
+  border-radius: var(--raio);
+  background: var(--campo);
+  color: var(--tinta);
+  font: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+input::placeholder {
+  color: #9b9aa7;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--acento);
+  background: var(--superficie);
+  box-shadow: 0 0 0 4px var(--acento-suave);
+}
+
+/* ---------- 7. Lista de tarefas ---------- */
+ul {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cada tarefa é um cartão suave */
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 2px 6px 2px 14px;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--superficie);
+  box-shadow: var(--sombra-suave);
+}
+
+li .texto {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espaço entre o ícone e o texto */
+  min-height: 44px;
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+/* O ícone do círculo ganha a cor de acento */
+li .texto svg {
+  color: var(--acento);
+}
+
+/* Botão apagar: discreto; avermelha suavemente ao tocar */
+li .remover {
+  width: 38px;
+  min-height: 38px;
+  padding: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--tinta-suave);
+  box-shadow: none;
+}
+
+li .remover:active {
+  background: var(--perigo-suave);
+  color: var(--perigo);
+  transform: scale(0.94);
+}
+
+/* ---------- 8. Estado vazio ---------- */
+.vazio {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--tinta-suave);
+}
+
+/* ---------- 9. Menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
   }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
 }
